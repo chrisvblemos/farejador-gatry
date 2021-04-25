@@ -1,6 +1,6 @@
 # Farejador do Gatry
 
-![alt text](https://i.imgur.com/r3wYuey.png)
+![alt text](https://i.imgur.com/jvJ44cn.png)
 
 Um cliente de Websocket que se conecta ao servidor de ws do site Gatry. Quando detecta uma nova promoção, faz uma extração dos dados da promoção e então publica em um canal do Telegram via um bot.
 
