@@ -58,7 +58,7 @@ class WebSocketClient():
     async def heartbeat(self, connection):
         while True:
             try:
-                self.logger.ingo('Pingando o servidor...')
+                self.logger.info('Pingando o servidor...')
                 await connection.send('{"event":"pusher:ping","data":{}}')
                 await asyncio.sleep(120)
             except websockets.exceptions.ConnectionClosed:
