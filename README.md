@@ -34,10 +34,3 @@ Basta executar o seguinte comando:
 Basta executar o seguinte comando:
 
 `docker run --rm -it -e TELEGRAM_BOT_TOKEN=SEU_TOKEN -e TELEGRAM_CHANNEL=CANAL_DO_TELEGRAM gatry-bot`
-
-# Acknowledgements
-
-- 🐕 [Marisa Helena](https://github.com/Isahelena)
-    - Organização do código;
-    - Logging;
-    - Docker Build.
