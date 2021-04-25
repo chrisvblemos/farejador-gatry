@@ -1,0 +1,6 @@
+__pycache__/
+Lib/
+.vscode/
+Scripts/
+*.log
+*.cfg

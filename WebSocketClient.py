@@ -46,8 +46,8 @@ class WebSocketClient():
         while True:
             try:
                 message = await connection.recv()
-                self.logger.debug(
-                    'Received message from server: {}'.format(message))
+                self.logger.info(
+                    'Nova mensagem recebida do servidor: {}'.format(message))
                 # O consumidor executa sempre que uma nova mensagem chega (ver Consumer.py)
                 self.consumer.proccess(message)
             except websockets.exceptions.ConnectionClosed:
@@ -58,6 +58,7 @@ class WebSocketClient():
     async def heartbeat(self, connection):
         while True:
             try:
+                self.logger.ingo('Pingando o servidor...')
                 await connection.send('{"event":"pusher:ping","data":{}}')
                 await asyncio.sleep(120)
             except websockets.exceptions.ConnectionClosed:
