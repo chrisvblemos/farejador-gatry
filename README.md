@@ -1,6 +1,7 @@
 ![alt text](https://i.imgur.com/jvJ44cn.png)
 # Farejador do Gatry
 
+[Canal oficial no Telegram](https://t.me/gatry_promocoes)
 
 Um cliente de Websocket que se conecta ao servidor de ws do site Gatry. Quando detecta uma nova promoção, faz uma extração dos dados da promoção e então publica em um canal do Telegram via um bot.
 
@@ -27,7 +28,7 @@ Para executar a aplicação, basta executar o seguinte comando:
 
 Basta executar o seguinte comando:
 
-`docker build . -t=gatry-bot`
+`docker build . -t gatry-bot`
 
 # Docker Run
 
