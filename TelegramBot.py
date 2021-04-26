@@ -1,4 +1,4 @@
-import telebot
+from telebot import TeleBot, types
 import os
 
 TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
@@ -9,9 +9,24 @@ CHANNEL = os.getenv('TELEGRAM_CHANNEL')
 
 class TelegramBot():
     def __init__(self):
-        self.bot = telebot.TeleBot(TOKEN, parse_mode='HTML')
+        self.bot = TeleBot(TOKEN, parse_mode='HTML')
+
+    def KeyboardFactory(self, url):
+        return [
+            [
+                types.InlineKeyboardButton(
+                    "💬 Discuta no Gatry!", url=url),
+            ]
+        ]
 
     def Push(self, promo):
-        caption = '<b>🚨🚨🚨 NOVA PROMOÇÃO CHEGANDO, AU AU!\n\n<a href="{}">{}</a>\n💸Preço: R${}</b>\n\n\n💬<a href="{}">Discuta no Gatry!</a>'.format(
-            promo['link'], promo['name'], promo['price'], promo['gatry_link'])
-        self.bot.send_message(CHANNEL, caption)
+        caption = '''<b>🚨 NOVA PROMOÇÃO CHEGANDO, AU AU!
+
+        🔥 <a href="{}">{}</a>
+        💸 Preço: R$ {}</b>
+        👽 Enviado por: <a href="{}">{}</a>
+        '''.format(
+            promo['link'], promo['name'], promo['price'], promo['user_profile'], promo['user_name'])
+        reply_markup = types.InlineKeyboardMarkup(
+            self.KeyboardFactory(promo['gatry_link']))
+        self.bot.send_message(CHANNEL, caption, reply_markup=reply_markup)
