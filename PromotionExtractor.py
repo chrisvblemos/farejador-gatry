@@ -42,6 +42,10 @@ class PromotionExtractor():
             promotion.find('a', 'mais hidden-xs', href=True)['href']
         promo['price'] = promotion.find(
             'p', 'preco margin-comentario').find('span', itemprop='price').getText()
+        promo['user_name'] = promotion.find('p', 'usuario').find('img')[
+            'title']
+        promo['user_profile'] = self.url + \
+            promotion.find('p', 'usuario').find('a', href=True)['href']
 
         self.logger.info('Found new promotion: {}'.format(promo))
         return promo
