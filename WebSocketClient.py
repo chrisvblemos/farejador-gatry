@@ -33,7 +33,7 @@ class WebSocketClient():
         if self.connection.open:
             self.logger.info(
                 'Conexão com websocket estabelecida... Cliente conectado com sucesso!')
-            # Send greeting
+            # Inscreve-se no canal gatry-site para receber notificações de promoções novas
             await self.sendMessage('{"event":"pusher:subscribe","data":{"auth":"","channel":"gatry-site"}}')
             return self.connection
 
@@ -42,25 +42,30 @@ class WebSocketClient():
         await self.connection.send(message)
 
     # Recebe nova mensagem
-    async def receiveMessage(self, connection):
+    async def receiveMessage(self):
         while True:
             try:
-                message = await connection.recv()
+                message = await self.connection.recv()
                 self.logger.info(
                     'Nova mensagem recebida do servidor: {}'.format(message))
+
                 # O consumidor executa sempre que uma nova mensagem chega (ver Consumer.py)
                 self.consumer.proccess(message)
             except websockets.exceptions.ConnectionClosed:
-                self.logger.error('Conexão com servidor fechada!')
-                break
+                self.logger.error('Conexão com servidor perdida!')
+                self.logger.info('Tentando reestabelecer conexão...')
+                await self.connect()
+                await asyncio.sleep(5)
 
     # Envia uma mensagem de ping para o servidor ws da Gatry a cada 120 segundos
-    async def heartbeat(self, connection):
+    async def heartbeat(self):
         while True:
             try:
                 self.logger.info('Pingando o servidor...')
-                await connection.send('{"event":"pusher:ping","data":{}}')
+                await self.connection.send('{"event":"pusher:ping","data":{}}')
                 await asyncio.sleep(120)
             except websockets.exceptions.ConnectionClosed:
-                self.logger.error('Conexão com servidor fechada!')
-                break
+                self.logger.error('Conexão com servidor perdida!')
+                self.logger.info('Tentando reestabelecer conexão...')
+                await self.connect()
+                await asyncio.sleep(5)
