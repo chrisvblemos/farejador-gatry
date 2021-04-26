@@ -4,7 +4,7 @@ import os
 TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
 CHANNEL = os.getenv('TELEGRAM_CHANNEL')
 
-# Definição do Bot do Telegram, insira o TOKEN do seu bot e o canal CHANNEL onde quer enviar as mensagens no arquivo settings.py
+# Definição do Bot do Telegram, lembre-se de setar o TOKEN e o canal do Telegram nas variáveis de ambiente, como descrito no README
 
 
 class TelegramBot():
